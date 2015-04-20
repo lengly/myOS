@@ -20,6 +20,16 @@ void asm_inthandler21(void);
 void asm_inthandler27(void);
 void asm_inthandler2c(void);
 
+/*  fifo.c  */
+struct FIFO8 {
+	unsigned char *buf;
+	int p, q, size, free, flags; // p:next_w  q:next_r
+};
+void fifo8_init(struct FIFO8 *fifo, int size, unsigned char *buf);
+int fifo8_put(struct FIFO8 *fifo, unsigned char data);
+int fifo8_get(struct FIFO8 *fifo);
+int fifo8_status(struct FIFO8 *fifo);
+
 /*  graphic  */
 void init_palette(void);
 void set_palette(int start, int end, unsigned char *rgb);
