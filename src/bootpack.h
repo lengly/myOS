@@ -11,15 +11,24 @@ struct BOOTINFO {
 void io_hlt(void);
 void io_cli(void);
 void io_sti(void);
+void io_stihlt(void);
+int io_in8(int port);
+int io_in16(int port);
+int io_in32(int port);
 void io_out8(int port, int data);
+void io_out16(int port, int data);
+void io_out32(int port, int data);
 int  io_load_eflags(void);
 void io_store_eflags(int eflags);
 void load_gdtr(int limit, int addr);
 void load_idtr(int limit, int addr);
+int load_cr0(void);
+void store_cr0(int cr0);
 void asm_inthandler20(void);
 void asm_inthandler21(void);
 void asm_inthandler27(void);
 void asm_inthandler2c(void);
+unsigned int memtest_sub(unsigned int start, unsigned int end);
 
 /*  fifo.c  */
 struct FIFO32 {
@@ -29,13 +38,13 @@ struct FIFO32 {
 void fifo32_init(struct FIFO32 *fifo, int size, int *buf);
 int fifo32_put(struct FIFO32 *fifo, int data);
 int fifo32_get(struct FIFO32 *fifo);
-int fifo32_stactus(struct FIFO32 *fifo);
+int fifo32_status(struct FIFO32 *fifo);
 
 /*  graphic  */
 void init_palette(void);
 void set_palette(int start, int end, unsigned char *rgb);
 void boxfill8(unsigned char *vram, int xsize, unsigned char c, int x0, int y0, int x1, int y1);
-void init_screen(char *vram, int x, int y);
+void init_screen8(char *vram, int x, int y);
 void putfont8(char *vram, int xsize, int x, int y, char c, char *font);
 void putfonts8_asc(char *vram, int xsize, int x, int y, char c, char *s);
 void init_mouse_cursor8(char *mouse, char bc);

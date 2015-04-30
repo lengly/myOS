@@ -91,7 +91,6 @@ void timer_settime(struct TIMER *timer, unsigned int timeout)
 
 void inthandler20(int *esp)
 {
-	int i;
 	struct TIMER *timer;
 	io_out8(PIC0_OCW2, 0x60);	/* 把IRQ-00信号接收完了的信息通知给PIC */
 	timerctl.count++;
