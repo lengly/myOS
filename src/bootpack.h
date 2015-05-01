@@ -24,11 +24,13 @@ void load_gdtr(int limit, int addr);
 void load_idtr(int limit, int addr);
 int load_cr0(void);
 void store_cr0(int cr0);
+void load_tr(int tr);
 void asm_inthandler20(void);
 void asm_inthandler21(void);
 void asm_inthandler27(void);
 void asm_inthandler2c(void);
 unsigned int memtest_sub(unsigned int start, unsigned int end);
+void farjmp(int eip, int cs);
 
 /*  fifo.c  */
 struct FIFO32 {
@@ -94,6 +96,7 @@ void set_gatedesc(struct GATE_DESCRIPTOR *gd, int offset, int selector, int ar);
 #define AR_DATA32_RW	0x4092
 #define AR_CODE32_ER	0x409a
 #define AR_INTGATE32	0x008e
+#define AR_TSS32		0x0089
 
 /*  int.c  */
 void init_pic(void);
@@ -191,3 +194,7 @@ void timer_free(struct TIMER *timer);
 void timer_init(struct TIMER *timer, struct FIFO32 *fifo, int data);
 void timer_settime(struct TIMER *timer, unsigned int timerout);
 
+/* mtask.c */
+extern struct TIMER *mt_timer;
+void mt_init(void);
+void mt_taskswitch(void);
