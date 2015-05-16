@@ -209,6 +209,7 @@ struct TSS32 {
 struct TASK {
 	int sel, flags; /* sel用来存放GDT的编号 */
 	int level, priority;
+	struct FIFO32 fifo;
 	struct TSS32 tss;
 };
 struct TASKLEVEL {
@@ -232,3 +233,4 @@ struct TASK *task_alloc(void);
 void task_run(struct TASK *task, int level, int priority);
 void task_switch(void);
 void task_sleep(struct TASK *task);
+void task_idle(void);
