@@ -58,6 +58,8 @@ copy:
 	mount -o loop os.img /tmp/floppy
 	sleep 1
 	cp haribote.sys /tmp/floppy
+	cp Makefile /tmp/floppy
+	cp asmhead.nas /tmp/floppy
 	sleep 1
 	umount /tmp/floppy
 
