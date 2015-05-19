@@ -1,6 +1,6 @@
 OBJS_BOOTPACK = bootpack.obj naskfunc.obj hankaku.obj graphic.obj dsctbl.obj \
 			int.obj fifo.obj keyboard.obj mouse.obj memory.obj sheet.obj \
-			time.obj mtask.obj
+			time.obj mtask.obj file.obj console.obj window.obj
 
 TOOLS_PATH	:= ../z_tools/
 INCPATH		:= $(TOOLS_PATH)haribote/
@@ -17,7 +17,12 @@ BIN2OBJ		:= wine $(TOOLS_PATH)bin2obj.exe
 all:
 	make img
 	make sys
+	make app
 	sudo make copy
+
+app:	
+	$(NASK) hlt.nas hlt.hrb
+
 
 obj2bim : $(OBJS_BOOTPACK) 
 	$(OBJ2BIM) @$(RULEFILE) out:bootpack.bim stack:3136k map:bootpack.map \
@@ -60,6 +65,7 @@ copy:
 	cp haribote.sys /tmp/floppy
 	cp Makefile /tmp/floppy
 	cp asmhead.nas /tmp/floppy
+	cp hlt.hrb /tmp/floppy
 	sleep 1
 	umount /tmp/floppy
 
@@ -67,7 +73,7 @@ clean:
 	rm -rf os.img
 	rm -rf bootloader ipl.lst
 	rm -rf haribote.sys
-	rm -rf asmhead.bin
+	rm -rf asmhead.bin hlt.hrb
 	rm -rf *.lst *.obj *.bin
 	rm -rf bootpack.gas bootpack.nas bootpack.bim bootpack.hrb bootpack.map
 	rm -rf *~
