@@ -21,7 +21,8 @@ all:
 	sudo make copy
 
 app:	
-	$(NASK) hlt.nas hlt.hrb
+	$(NASK) hello.nas hello.hrb hello.lst
+	$(NASK) hello2.nas hello2.hrb hello2.lst
 
 
 obj2bim : $(OBJS_BOOTPACK) 
@@ -65,7 +66,8 @@ copy:
 	cp haribote.sys /tmp/floppy
 	cp Makefile /tmp/floppy
 	cp asmhead.nas /tmp/floppy
-	cp hlt.hrb /tmp/floppy
+	cp hello.hrb /tmp/floppy
+	cp hello2.hrb /tmp/floppy
 	sleep 1
 	umount /tmp/floppy
 
@@ -73,7 +75,7 @@ clean:
 	rm -rf os.img
 	rm -rf bootloader ipl.lst
 	rm -rf haribote.sys
-	rm -rf asmhead.bin hlt.hrb
+	rm -rf asmhead.bin *.hrb
 	rm -rf *.lst *.obj *.bin
 	rm -rf bootpack.gas bootpack.nas bootpack.bim bootpack.hrb bootpack.map
 	rm -rf *~
