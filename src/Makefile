@@ -20,10 +20,16 @@ all:
 	make app
 	sudo make copy
 
-app:	
+app: a.hrb hello3.hrb crack1.hrb
 	$(NASK) hello.nas hello.hrb hello.lst
 	$(NASK) hello2.nas hello2.hrb hello2.lst
+	$(NASK) crack2.nas crack2.hrb crack2.lst
 
+%.bim : %.obj a_nask.obj
+	$(OBJ2BIM) @$(RULEFILE) out:$*.bim map:$*.map $*.obj a_nask.obj
+
+%.hrb : %.bim
+	$(BIM2HRB) $*.bim $*.hrb 0
 
 obj2bim : $(OBJS_BOOTPACK) 
 	$(OBJ2BIM) @$(RULEFILE) out:bootpack.bim stack:3136k map:bootpack.map \
@@ -66,8 +72,7 @@ copy:
 	cp haribote.sys /tmp/floppy
 	cp Makefile /tmp/floppy
 	cp asmhead.nas /tmp/floppy
-	cp hello.hrb /tmp/floppy
-	cp hello2.hrb /tmp/floppy
+	cp a.hrb hello*.hrb crack*.hrb /tmp/floppy
 	sleep 1
 	umount /tmp/floppy
 
@@ -75,8 +80,6 @@ clean:
 	rm -rf os.img
 	rm -rf bootloader ipl.lst
 	rm -rf haribote.sys
-	rm -rf asmhead.bin *.hrb
-	rm -rf *.lst *.obj *.bin
+	rm -rf *.lst *.obj *.bin *.bim *.hrb *.map
 	rm -rf bootpack.gas bootpack.nas bootpack.bim bootpack.hrb bootpack.map
 	rm -rf *~
-

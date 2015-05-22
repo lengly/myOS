@@ -30,7 +30,9 @@ void asm_inthandler20(void);
 void asm_inthandler21(void);
 void asm_inthandler27(void);
 void asm_inthandler2c(void);
+void asm_inthandler0d(void);
 void asm_hrb_api(void);
+void start_app(int eip, int cs, int esp, int ds, int *tss_esp0);
 unsigned int memtest_sub(unsigned int start, unsigned int end);
 void farjmp(int eip, int cs);
 void farcall(int eip, int cs);
@@ -266,7 +268,7 @@ int cmd_app(struct CONSOLE *cons, int *fat, char *cmdline);
 void cons_putstr0(struct CONSOLE *cons, char *s);
 void cons_putstr1(struct CONSOLE *cons, char *s, int l);
 void hrb_api(int edi, int esi, int ebp, int esp, int ebx, int edx, int ecx, int eax);
-
+int inthandler0d(int *esp);
 
 /* window.c */
 void make_window8(unsigned char *buf, int xsize, int ysize, char *title, char act);
